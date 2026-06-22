@@ -8,7 +8,7 @@
 const TOPICS = {
   elektro: {
     title: "⚡ Elektrotechnik",
-    sub: "Spannung, Stromkreis, Widerstand",
+    sub: "Spannung, Schaltungen, Löten, Widerstand",
     emoji: "⚡",
     cards: [
       { q: "Was ist eine Spannungsquelle?", a: "Ein Gerät, das elektrische Spannung liefert – z. B. eine Batterie, ein Akku oder eine Solarzelle." },
@@ -31,6 +31,60 @@ const TOPICS = {
       { q: "Was ist ein Potenziometer?", a: "Ein einstellbarer Widerstand. Man kann den Widerstandswert durch Drehen oder Schieben verstellen." },
       { q: "Was zeigt der Farbcode an einem Widerstand?", a: "Die ersten 2 Ringe = Widerstandswert, 3. Ring = Multiplikationsfaktor, 4. Ring = Toleranz (Abweichung)." },
       { q: "Merksatz: Was passiert bei großem Widerstand mit der Stromstärke?", a: "Großer Widerstand → kleine Stromstärke. Kleiner Widerstand → große Stromstärke." },
+
+      // --- Löten ---
+      { q: "Was ist Löten?", a: "Eine stoffschlüssige Verbindung: Metallteile werden durch ein Lot (Schmelzmetall) verbunden und elektrisch leitend mit einer Platine verbunden." },
+      { q: "Was unterscheidet Weichlöten von Hartlöten?", a: "Weichlöten: bis ca. 450°C. Hartlöten: 450°C bis ca. 900°C. Hochtemperaturlöten: über 900°C." },
+      { q: "Woraus besteht Lötzinn (Lot) hauptsächlich?", a: "Aus einer Legierung verschiedener Metalle – hauptsächlich Blei, Zinn, Silber und Kupfer." },
+      { q: "Welche Temperatur erreicht ein normaler Lötkolben ungefähr?", a: "Etwa 360°C an der Lötkolbenspitze." },
+      { q: "Warum sollte die Lötkolbenspitze nicht zu heiß sein?", a: "Bei zu hohen Temperaturen kann sich auf dem Lot eine Oxidschicht bilden, die das Löten erschwert oder unmöglich macht." },
+      { q: "Was bewirkt Flussmittel beim Löten?", a: "Es löst die Oxidschicht auf den Metallen und schützt vor erneuter Oxidation." },
+      { q: "Warum sollte die Lotschicht möglichst dünn sein?", a: "Weil die Zugfestigkeit des Lotes geringer ist als die der zu verbindenden Materialien." },
+      { q: "Nenne die 3 Schritte beim richtigen Löten.", a: "1. Verbindungsstellen mit dem Lötkolben erwärmen. 2. Lötzinn schmilzt (ca. 300°C) und legt sich auf die Metallteile. 3. Durch Abkühlen wird das Lot fest – Teile sind verbunden." },
+      { q: "Nenne 2 Tipps für haltbare Lötstellen.", a: "Lötstelle sauber halten, Lötspalt klein halten, Lot erst auf die erhitzte Stelle geben, Teile bis zum Erkalten fixieren." },
+      { q: "Welche Ausstattung gehört zu einem Lötarbeitsplatz?", a: "Lötkabel, Ablage, feuchter Schwamm, 3. Hand, Lot, Lötunterlage, Entlötpumpe, offenes Fenster/Lötdampfabsorber, gute Beleuchtung." },
+      { q: "Woran erkennt man eine GUTE Lötstelle?", a: "Glatte, schön verlaufende Oberfläche, glänzend, wenig Lötzinn verbraucht." },
+      { q: "Was bedeutet es, wenn eine Lötstelle nur 'geklebt' aussieht?", a: "Das Lot ist nicht richtig verflossen – die Lötstelle ist kalt geblieben und damit unbrauchbar." },
+      { q: "Was bedeutet es, wenn auf dem Lot eine raue/krustige Oberfläche zu sehen ist?", a: "Das Lot wurde überhitzt – auch das macht die Lötstelle unbrauchbar." },
+      { q: "Welches Lot sollte man heute zum Löten verwenden?", a: "Bleifreies Lot mit Flussmittel." },
+      { q: "Wie verhindert man, dass empfindliche Bauteile (z.B. LEDs) beim Löten überhitzt werden?", a: "Nicht länger als 2–3 Sekunden pro Lötung, Wärme z.B. mit einer Zange ableiten, Bauteil-Beinchen vorher kürzen." },
+      { q: "Nenne 3 wichtige Sicherheitsregeln beim Löten.", a: "Lötkolben ist heiß – Verbrennungsgefahr! Kabel vor dem Anschmoren sichern. Lötdämpfe nicht einatmen, lüften. Lötzinn/verschmutzte Hände nicht zum Mund führen (Blei!). Lötspitzen reinigen. Vor Wegräumen muss der Lötkolben erkaltet sein." },
+      { q: "Warum darf man Lötzinn oder verschmutzte Hände nicht zum Mund führen?", a: "Weil Lötzinn Blei enthalten kann – das ist giftig." },
+
+      // --- Schalter im Stromkreis ---
+      { q: "Was ist eine UND-Schaltung? Nenne ein Beispiel.", a: "Zwei Schalter müssen GLEICHZEITIG geschlossen sein, damit Strom fließt (Reihenschaltung der Schalter). Beispiel: Waschmaschine – Hauptschalter UND Türschalter müssen beide an sein." },
+      { q: "Was ist eine ODER-Schaltung? Nenne ein Beispiel.", a: "Es reicht, wenn EINER von mehreren Schaltern geschlossen ist, damit Strom fließt (Parallelschaltung der Schalter). Beispiel: Klingel – von der Haustür ODER der Wohnungstür auslösbar." },
+      { q: "Was ist ein Wechselschalter und wofür wird er gebraucht?", a: "Ein Schalter mit zwei Schaltstellungen, mit dem man von verschiedenen Stellen aus eine Lampe an- und ausschalten kann. Beispiel: Treppenhauslicht." },
+      { q: "Wie ist ein Fön-Schalter aufgebaut (technisch)?", a: "Zuerst wird nur der Ventilator (Motor) eingeschaltet. Bei weiterem Schalten kommt der Heizdraht (Lampe symbolisch) dazu – aber nur in Verbindung mit dem Ventilator, sonst brennt der Heizdraht durch." },
+      { q: "Warum darf der Heizdraht eines Föns nur zusammen mit dem Ventilator laufen?", a: "Um ein schnelles Durchbrennen der Heizdrähte durch fehlende Kühlung zu vermeiden." },
+
+      // --- Reihen- und Parallelschaltung ---
+      { q: "Was passiert mit der Helligkeit von Lämpchen in einer Reihenschaltung, wenn man mehr Lämpchen hinzufügt?", a: "Die Lämpchen leuchten schwächer – die Spannung verteilt sich auf alle Lämpchen (z.B. 6V auf 2 Lämpchen = je 3V)." },
+      { q: "Was passiert mit der Helligkeit von Lämpchen in einer Parallelschaltung?", a: "Alle Lämpchen leuchten gleich hell – jedes bekommt die volle Spannung (z.B. je 6V)." },
+      { q: "Was passiert in einer Reihenschaltung, wenn ein Lämpchen ausfällt?", a: "Der Stromkreis wird unterbrochen – KEIN Lämpchen leuchtet mehr." },
+      { q: "Was passiert in einer Parallelschaltung, wenn ein Lämpchen ausfällt?", a: "Die andere Lampe leuchtet trotzdem weiter, weil es zwei getrennte Stromkreise gibt." },
+      { q: "Welche Schaltung lässt die Batterie länger halten – Reihen- oder Parallelschaltung?", a: "Die Reihenschaltung – die Batterie hält länger, weil weniger Strom fließt (dafür leuchten die Lämpchen schwächer)." },
+      { q: "Warum leuchten Lämpchen in Reihenschaltung schwächer? (Begründung mit Ohmschem Gesetz)", a: "Bei der Reihenschaltung addieren sich die Widerstände der Lämpchen. Das beeinflusst die Stromstärke – sie sinkt, die Lämpchen leuchten schwächer." },
+      { q: "Wie verhält sich der Gesamtwiderstand bei Parallelschaltung von Lämpchen?", a: "Der Parallelwiderstand ist kleiner als der kleinste Einzelwiderstand." },
+
+      // --- Spannungsquellen vertieft ---
+      { q: "Was sind Monozellen?", a: "Kleine elektrochemische Spannungsquellen für geringen Verbrauch, z.B. in Taschenlampen oder Uhren – nur 'verbraucht', nicht wiederaufladbar." },
+      { q: "Was bewirken Kondensatoren in einer Schaltung?", a: "Sie wirken wie kleine Spannungsspeicher: speichern elektrische Energie kurzzeitig zum Glätten von Gleichspannungen oder zur Funkentstörung." },
+      { q: "Was ist die technische Stromrichtung?", a: "Die festgelegte Richtung, in der der Strom in Leitungen fließt: vom Pluspol zum Minuspol der Spannungsquelle (auch wenn Elektronen physikalisch andersrum wandern)." },
+      { q: "Was bedeutet Wechselspannung?", a: "Die Spannung wechselt ständig ihre Richtung (Polung) – z.B. die 230V-Netzspannung aus der Steckdose." },
+      { q: "Was bedeutet Gleichspannung?", a: "Die Stromrichtung in den Leitungen bleibt immer gleich – Plus- und Minuspol sind fest." },
+      { q: "Wer darf an Netzspannung (230V) arbeiten?", a: "NUR ausgebildete Fachleute! Schüler dürfen nur mit Kleinspannung bis 24V experimentieren." },
+      { q: "Was bedeutet das Schaltzeichen 'Masse' bei Fahrzeugen?", a: "Ein Massepunkt verbindet mehrere Spannungsquellen-Minuspole leitend mit der Karosserie – das spart Leitungsstücke." },
+
+      // --- Ohmsches Gesetz / Widerstand berechnen ---
+      { q: "Wie lautet das Ohmsche Gesetz?", a: "R = U / I  (Widerstand = Spannung geteilt durch Stromstärke)" },
+      { q: "Welche Einheit hat U im Ohmschen Gesetz?", a: "Volt (V) – die Spannung." },
+      { q: "Welche Einheit hat I im Ohmschen Gesetz?", a: "Ampere (A) – die Stromstärke." },
+      { q: "Welche Einheit hat R im Ohmschen Gesetz?", a: "Ohm (Ω) – der Widerstand." },
+      { q: "Warum braucht eine LED einen Schutzwiderstand?", a: "Durch die LED darf nur ein begrenzter Strom (z.B. 20mA) fließen und es darf nicht mehr Spannung anliegen, als sie verträgt (z.B. max. 1,6V) – sonst geht sie kaputt." },
+      { q: "Rechenbeispiel: Batteriespannung 9V, LED braucht 1,6V, Strom soll 0,02A sein. Wie groß muss R sein?", a: "R = (9V − 1,6V) / 0,02A = 7,4V / 0,02A = 370 Ohm" },
+      { q: "Warum wählt man in der Praxis oft einen höheren Widerstandswert als berechnet?", a: "Weil im Handel nur bestimmte Normwerte erhältlich sind, z.B. 370 Ohm → man nimmt 390 Ohm (nächsthöherer Wert)." },
+      { q: "Wie kann man einen Widerstandswert bestimmen? Nenne 2 Methoden.", a: "1. Über den Farbcode ablesen. 2. Mit einem Vielfachmessgerät (Ohmmeter) messen. 3. Mit dem Ohmschen Gesetz berechnen." },
     ],
     quiz: [
       {
@@ -92,6 +146,96 @@ const TOPICS = {
         options: ["Der 1. Ring", "Der 2. Ring", "Der 3. Ring", "Der 4. Ring"],
         correct: 2,
         explain: "Die ersten zwei Ringe geben den Widerstandswert an, der 3. Ring den Multiplikationsfaktor, der 4. Ring die Toleranz."
+      },
+      {
+        q: "Was ist Löten?",
+        options: ["Eine Schraubverbindung", "Eine stoffschlüssige Verbindung mit einem Lot", "Eine Klebeverbindung", "Eine Schweißverbindung mit Strom"],
+        correct: 1,
+        explain: "Löten ist eine stoffschlüssige Verbindung, bei der Metallteile durch ein Lot verbunden werden."
+      },
+      {
+        q: "Bis zu welcher Temperatur spricht man von Weichlöten?",
+        options: ["bis ca. 100°C", "bis ca. 450°C", "bis ca. 900°C", "bis ca. 1500°C"],
+        correct: 1,
+        explain: "Weichlöten reicht bis etwa 450°C. Darüber spricht man von Hartlöten, über 900°C von Hochtemperaturlöten."
+      },
+      {
+        q: "Was bewirkt Flussmittel beim Löten?",
+        options: ["Es macht das Lot bunt", "Es löst die Oxidschicht und schützt vor erneuter Oxidation", "Es kühlt die Lötstelle", "Es ersetzt den Lötkolben"],
+        correct: 1,
+        explain: "Flussmittel löst die Oxidschicht auf den Metallen und schützt vor erneuter Oxidation."
+      },
+      {
+        q: "Woran erkennt man eine GUTE Lötstelle?",
+        options: ["Matt und krustig", "Glatt, glänzend, schön verlaufen", "Sehr viel Lötzinn verwendet", "Kalt und klebrig"],
+        correct: 1,
+        explain: "Eine gute Lötstelle ist glatt, glänzend und hat eine schön verlaufende Oberfläche, mit wenig Lötzinn-Verbrauch."
+      },
+      {
+        q: "Warum darf man Lötzinn nicht zum Mund führen?",
+        options: ["Es schmeckt nach Metall", "Es kann Blei enthalten – giftig", "Es ist zu heiß", "Das ist kein Problem"],
+        correct: 1,
+        explain: "Lötzinn kann Blei enthalten, das giftig ist – deshalb niemals zum Mund führen."
+      },
+      {
+        q: "Eine Waschmaschine startet nur, wenn Hauptschalter UND Türschalter geschlossen sind. Welche Schaltungsart ist das?",
+        options: ["ODER-Schaltung", "UND-Schaltung", "Wechselschaltung", "Kurzschluss"],
+        correct: 1,
+        explain: "Beide Schalter müssen gleichzeitig geschlossen sein – das ist eine UND-Schaltung (Reihenschaltung der Schalter)."
+      },
+      {
+        q: "Eine Klingel kann von der Haustür ODER der Wohnungstür ausgelöst werden. Welche Schaltungsart ist das?",
+        options: ["UND-Schaltung", "ODER-Schaltung", "Reihenschaltung der Schalter", "Schutzschaltung"],
+        correct: 1,
+        explain: "Es reicht, wenn einer der beiden Schalter betätigt wird – das ist eine ODER-Schaltung (Parallelschaltung der Schalter)."
+      },
+      {
+        q: "Welcher Schalter wird für eine Treppenhauslampe verwendet, die von mehreren Stellen schaltbar sein soll?",
+        options: ["Tastschalter", "Wechselschalter", "Schiebeschalter", "Drehschalter"],
+        correct: 1,
+        explain: "Ein Wechselschalter erlaubt das Schalten von verschiedenen Stellen aus, z. B. im Treppenhaus."
+      },
+      {
+        q: "Zwei Lämpchen leuchten in Reihenschaltung an 6V. Wie hell leuchten sie im Vergleich zur Parallelschaltung?",
+        options: ["Gleich hell", "Schwächer", "Heller", "Sie leuchten gar nicht"],
+        correct: 1,
+        explain: "In Reihenschaltung verteilt sich die Spannung auf beide Lämpchen (z.B. je 3V) – sie leuchten schwächer als bei Parallelschaltung."
+      },
+      {
+        q: "Bei einer Parallelschaltung fällt ein Lämpchen aus. Was passiert?",
+        options: ["Beide Lämpchen gehen aus", "Das andere Lämpchen leuchtet weiter", "Die Batterie explodiert", "Nichts ändert sich an der Batterie"],
+        correct: 1,
+        explain: "Bei Parallelschaltung gibt es getrennte Stromkreise – fällt eines aus, leuchtet das andere weiter."
+      },
+      {
+        q: "Welche Schaltung lässt die Batterie länger halten?",
+        options: ["Parallelschaltung", "Reihenschaltung", "Beide gleich", "Keine von beiden"],
+        correct: 1,
+        explain: "Bei der Reihenschaltung fließt weniger Strom, die Batterie hält länger (dafür leuchten die Lämpchen schwächer)."
+      },
+      {
+        q: "Wie lautet das Ohmsche Gesetz?",
+        options: ["U = R + I", "R = U / I", "I = R / U", "U = R / I"],
+        correct: 1,
+        explain: "Das Ohmsche Gesetz lautet R = U / I (Widerstand = Spannung durch Stromstärke)."
+      },
+      {
+        q: "Eine LED braucht 1,6V, soll mit 0,02A betrieben werden, die Batterie liefert 9V. Wie groß ist der nötige Schutzwiderstand?",
+        options: ["180 Ohm", "370 Ohm", "450 Ohm", "720 Ohm"],
+        correct: 1,
+        explain: "R = (9V − 1,6V) / 0,02A = 7,4V / 0,02A = 370 Ohm."
+      },
+      {
+        q: "Im Handel gibt es keinen 370-Ohm-Widerstand. Welchen Wert wählt man stattdessen?",
+        options: ["Den nächsthöheren Normwert (z.B. 390 Ohm)", "Den nächstniedrigeren Normwert", "Irgendeinen Wert", "Man braucht keinen Widerstand"],
+        correct: 0,
+        explain: "Man wählt grundsätzlich den nächsthöheren verfügbaren Normwert, hier z.B. 390 Ohm."
+      },
+      {
+        q: "Was bedeutet Wechselspannung?",
+        options: ["Die Spannung bleibt immer gleich", "Die Spannung wechselt ständig ihre Richtung", "Es gibt keinen Pluspol", "Das ist dasselbe wie Gleichspannung"],
+        correct: 1,
+        explain: "Bei Wechselspannung wechselt die Spannung ständig ihre Richtung (Polung), z.B. die 230V-Netzspannung."
       }
     ]
   },
