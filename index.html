@@ -114,6 +114,29 @@
   .t-mobil{background:var(--mobil-soft);}
   .t-verkehr{background:var(--verkehr-soft);}
 
+  .exam-banner{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    width:100%;
+    margin-top:18px;
+    border:none;
+    border-radius:var(--radius);
+    padding:20px 22px;
+    background:linear-gradient(135deg,#2B2B33,#44444F);
+    color:#fff;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    font-family:inherit;
+    text-align:left;
+  }
+  .exam-banner:active{transform:translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,.08);}
+  .exam-emoji{font-size:2.2rem; flex-shrink:0;}
+  .exam-text{flex:1;}
+  .exam-text h3{margin:0 0 2px; font-size:1.2rem; font-weight:900;}
+  .exam-text p{margin:0; font-size:.92rem; font-weight:700; opacity:.85;}
+  .exam-arrow{font-size:1.4rem; flex-shrink:0;}
+
   .mode-row{
     display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;
   }
@@ -329,6 +352,135 @@
     color:#a3a3ab;
     font-weight:700;
   }
+
+  /* EXAM MODE */
+  .exam-topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fff;
+    border-radius:18px;
+    padding:12px 18px;
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+  }
+  .exam-timer{
+    font-weight:900;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .exam-timer.low{color:var(--verkehr);}
+  .exam-progress-text{font-weight:800; color:#6b6b75;}
+
+  .exam-box{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:24px;
+    max-width:640px;
+    margin:0 auto 18px;
+  }
+  .exam-points-tag{
+    display:inline-block;
+    background:#EFEAE0;
+    border-radius:10px;
+    padding:4px 12px;
+    font-weight:800;
+    font-size:.85rem;
+    margin-bottom:12px;
+  }
+  .exam-question{
+    font-size:1.15rem;
+    font-weight:800;
+    line-height:1.5;
+    margin-bottom:14px;
+  }
+  .exam-hint-btn{
+    background:#FFF3D6;
+    border:none;
+    border-radius:12px;
+    padding:8px 14px;
+    font-family:inherit;
+    font-weight:800;
+    font-size:.92rem;
+    cursor:pointer;
+    margin-bottom:10px;
+  }
+  .exam-hint-text{
+    background:#FFF9EC;
+    border-radius:12px;
+    padding:12px 14px;
+    font-weight:700;
+    font-size:.95rem;
+    margin-bottom:14px;
+    display:none;
+  }
+  .exam-hint-text.show{display:block;}
+  .exam-answer-area{
+    width:100%;
+    min-height:90px;
+    border:2px solid #EFEAE0;
+    border-radius:14px;
+    padding:14px;
+    font-family:inherit;
+    font-size:1rem;
+    resize:vertical;
+    margin-bottom:14px;
+  }
+  .exam-options{display:flex; flex-direction:column; gap:10px; margin-bottom:14px;}
+  .exam-reveal-btn, .exam-next-btn{
+    width:100%;
+    border:none;
+    border-radius:16px;
+    padding:14px;
+    font-family:inherit;
+    font-weight:800;
+    font-size:1.05rem;
+    cursor:pointer;
+    margin-bottom:10px;
+  }
+  .exam-reveal-btn{background:var(--ink); color:#fff;}
+  .exam-solution-box{
+    background:#E2F2DD;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:14px;
+    display:none;
+  }
+  .exam-solution-box.show{display:block;}
+  .exam-solution-box .label{font-weight:900; font-size:.9rem; text-transform:uppercase; color:#2E6B27; margin-bottom:6px;}
+  .exam-solution-box .text{font-weight:700; font-size:1rem; line-height:1.5;}
+  .self-score-row{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+    flex-wrap:wrap;
+  }
+  .self-score-btn{
+    flex:1;
+    min-width:90px;
+    border:2px solid #EFEAE0;
+    background:#fff;
+    border-radius:12px;
+    padding:10px;
+    font-family:inherit;
+    font-weight:800;
+    cursor:pointer;
+    font-size:.92rem;
+  }
+  .self-score-btn.selected{
+    border-color:var(--ink);
+    background:#FFF3D6;
+  }
+  .exam-next-btn{
+    background:#fff;
+    color:var(--ink);
+    box-shadow:0 3px 0 rgba(0,0,0,.08);
+    display:none;
+  }
+  .exam-next-btn.show{display:block;}
 </style>
 </head>
 <body>
@@ -376,6 +528,15 @@
         <div class="done-badge" id="badge-verkehr">🔒</div>
       </button>
     </div>
+
+    <button class="exam-banner" onclick="startExam()">
+      <span class="exam-emoji">📝</span>
+      <div class="exam-text">
+        <h3>Klassenarbeit-Simulation</h3>
+        <p>15 Aufgaben wie in einer echten Arbeit – mit Zeit & Punkten</p>
+      </div>
+      <span class="exam-arrow">➡️</span>
+    </button>
 
     <footer>Tippe auf ein Thema, dann auf 🃏 Karten oder ❓ Quiz</footer>
   </div>
@@ -433,6 +594,30 @@
       <h2 id="result-title">Super gemacht!</h2>
       <p id="result-sub">Du hast 7 von 8 richtig.</p>
       <button class="result-btn" onclick="startQuiz()">🔁 Nochmal üben</button>
+      <button class="result-btn secondary" onclick="goHome()">🏠 Zur Startseite</button>
+    </div>
+  </div>
+
+  <!-- EXAM SCREEN -->
+  <div class="screen" id="screen-exam">
+    <button class="back-btn" onclick="confirmExitExam()">⬅️ Abbrechen</button>
+    <div class="exam-topbar">
+      <div class="exam-timer" id="exam-timer">⏱️ 30:00</div>
+      <div class="exam-progress-text" id="exam-progress-text">Aufgabe 1 / 15</div>
+    </div>
+    <div class="exam-box" id="exam-box">
+      <!-- gefüllt durch JS -->
+    </div>
+  </div>
+
+  <!-- EXAM RESULT SCREEN -->
+  <div class="screen" id="screen-exam-result">
+    <div class="result-box">
+      <div class="result-emoji" id="exam-result-emoji">📝</div>
+      <h2 id="exam-result-title">Klassenarbeit fertig!</h2>
+      <p id="exam-result-sub">Du hast X von Y Punkten erreicht.</p>
+      <div id="exam-result-note" style="font-weight:800; font-size:1.3rem; margin-bottom:18px;"></div>
+      <button class="result-btn" onclick="startExam()">🔁 Nochmal schreiben</button>
       <button class="result-btn secondary" onclick="goHome()">🏠 Zur Startseite</button>
     </div>
   </div>

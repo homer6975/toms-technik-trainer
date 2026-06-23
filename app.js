@@ -11,6 +11,18 @@ let state = {
   quizAnswered: false,
 };
 
+// Exam-Modus state
+let examState = {
+  index: 0,
+  earnedPoints: 0,
+  maxPoints: 0,
+  timerInterval: null,
+  secondsLeft: 0,
+  selfScores: [], // pro Frage: erzielte Punkte
+  hintShown: false,
+  revealed: false,
+};
+
 // Fortschritt im Speicher (nur für diese Sitzung, kein localStorage!)
 let progress = {
   elektro: 0,
@@ -261,6 +273,215 @@ function updateOverallProgress() {
   stars.textContent = '⭐'.repeat(perfect) + '🔘'.repeat(total - perfect);
 
   keys.forEach(updateBadge);
+}
+
+// ---------------- KLASSENARBEIT-SIMULATION ----------------
+
+function startExam() {
+  examState.index = 0;
+  examState.earnedPoints = 0;
+  examState.maxPoints = EXAM.questions.reduce((sum, q) => sum + q.points, 0);
+  examState.selfScores = new Array(EXAM.questions.length).fill(0);
+  examState.secondsLeft = EXAM.durationMinutes * 60;
+  examState.hintShown = false;
+  examState.revealed = false;
+
+  renderExamQuestion();
+  startExamTimer();
+  showScreen('screen-exam');
+}
+
+function startExamTimer() {
+  if (examState.timerInterval) clearInterval(examState.timerInterval);
+  updateTimerDisplay();
+  examState.timerInterval = setInterval(() => {
+    examState.secondsLeft--;
+    updateTimerDisplay();
+    if (examState.secondsLeft <= 0) {
+      clearInterval(examState.timerInterval);
+      finishExam();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(examState.secondsLeft / 60);
+  const s = examState.secondsLeft % 60;
+  const display = `⏱️ ${m}:${s.toString().padStart(2, '0')}`;
+  const timerEl = document.getElementById('exam-timer');
+  timerEl.textContent = display;
+  if (examState.secondsLeft <= 60) {
+    timerEl.classList.add('low');
+  } else {
+    timerEl.classList.remove('low');
+  }
+}
+
+function renderExamQuestion() {
+  const q = EXAM.questions[examState.index];
+  examState.hintShown = false;
+  examState.revealed = false;
+
+  document.getElementById('exam-progress-text').textContent =
+    `Aufgabe ${examState.index + 1} / ${EXAM.questions.length}`;
+
+  const box = document.getElementById('exam-box');
+  let html = `<div class="exam-points-tag">${q.points} ${q.points === 1 ? 'Punkt' : 'Punkte'}</div>`;
+  html += `<div class="exam-question">${q.q}</div>`;
+
+  if (q.type === 'open') {
+    if (q.hint) {
+      html += `<button class="exam-hint-btn" onclick="toggleHint()">💡 Tipp anzeigen</button>`;
+      html += `<div class="exam-hint-text" id="exam-hint-text">${q.hint}</div>`;
+    }
+    html += `<textarea class="exam-answer-area" id="exam-answer-input" placeholder="Schreib hier deine Lösung auf..."></textarea>`;
+    html += `<button class="exam-reveal-btn" id="exam-reveal-btn" onclick="revealSolution()">✅ Lösung anzeigen & vergleichen</button>`;
+    html += `<div class="exam-solution-box" id="exam-solution-box">
+                <div class="label">Musterlösung</div>
+                <div class="text">${q.answer}</div>
+              </div>`;
+    html += `<div id="self-score-area" style="display:none;">
+                <div style="font-weight:800; margin-bottom:8px;">Wie viele Punkte hättest du bekommen?</div>
+                <div class="self-score-row" id="self-score-row"></div>
+              </div>`;
+  } else if (q.type === 'mc') {
+    html += `<div class="exam-options" id="exam-mc-options"></div>`;
+  }
+
+  html += `<button class="exam-next-btn" id="exam-next-btn" onclick="nextExamQuestion()">
+              ${examState.index === EXAM.questions.length - 1 ? '🏁 Abgeben' : 'Weiter ➡️'}
+            </button>`;
+
+  box.innerHTML = html;
+
+  if (q.type === 'mc') {
+    const optionsBox = document.getElementById('exam-mc-options');
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.textContent = opt;
+      btn.onclick = () => selectExamMcAnswer(idx);
+      optionsBox.appendChild(btn);
+    });
+  }
+}
+
+function toggleHint() {
+  examState.hintShown = !examState.hintShown;
+  document.getElementById('exam-hint-text').classList.toggle('show', examState.hintShown);
+}
+
+function revealSolution() {
+  examState.revealed = true;
+  document.getElementById('exam-solution-box').classList.add('show');
+  document.getElementById('exam-reveal-btn').style.display = 'none';
+
+  const q = EXAM.questions[examState.index];
+  const scoreArea = document.getElementById('self-score-area');
+  scoreArea.style.display = 'block';
+
+  const row = document.getElementById('self-score-row');
+  row.innerHTML = '';
+  const options = [0, Math.round(q.points / 2), q.points];
+  const labels = ['0 Punkte', 'Teilweise', `${q.points} Punkte (voll)`];
+  // Vermeide Duplikate bei kleinen Punktzahlen
+  const uniqueOptions = [...new Set(options)];
+
+  uniqueOptions.forEach((val) => {
+    const btn = document.createElement('button');
+    btn.className = 'self-score-btn';
+    btn.textContent = val === 0 ? '0 Punkte' : (val === q.points ? `${val} (voll)` : `${val} (teilw.)`);
+    btn.onclick = () => {
+      examState.selfScores[examState.index] = val;
+      document.querySelectorAll('.self-score-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById('exam-next-btn').classList.add('show');
+    };
+    row.appendChild(btn);
+  });
+}
+
+function selectExamMcAnswer(selectedIdx) {
+  if (examState.revealed) return;
+  examState.revealed = true;
+
+  const q = EXAM.questions[examState.index];
+  const buttons = document.querySelectorAll('#exam-mc-options .quiz-option');
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === q.correct) btn.classList.add('correct');
+    else if (idx === selectedIdx) btn.classList.add('wrong');
+  });
+
+  const earned = selectedIdx === q.correct ? q.points : 0;
+  examState.selfScores[examState.index] = earned;
+
+  const box = document.getElementById('exam-box');
+  const explainDiv = document.createElement('div');
+  explainDiv.className = 'quiz-explain';
+  explainDiv.style.marginTop = '10px';
+  explainDiv.style.marginBottom = '10px';
+  explainDiv.textContent = q.explain;
+  document.getElementById('exam-mc-options').after(explainDiv);
+
+  document.getElementById('exam-next-btn').classList.add('show');
+}
+
+function nextExamQuestion() {
+  if (examState.index < EXAM.questions.length - 1) {
+    examState.index++;
+    renderExamQuestion();
+  } else {
+    finishExam();
+  }
+}
+
+function finishExam() {
+  if (examState.timerInterval) clearInterval(examState.timerInterval);
+
+  const earned = examState.selfScores.reduce((sum, v) => sum + v, 0);
+  const max = examState.maxPoints;
+  const pct = max > 0 ? earned / max : 0;
+
+  document.getElementById('exam-result-sub').textContent =
+    `Du hast ${earned} von ${max} Punkten erreicht.`;
+
+  const emojiEl = document.getElementById('exam-result-emoji');
+  const titleEl = document.getElementById('exam-result-title');
+  const noteEl = document.getElementById('exam-result-note');
+
+  let note;
+  if (pct >= 0.92) note = '1';
+  else if (pct >= 0.81) note = '2';
+  else if (pct >= 0.67) note = '3';
+  else if (pct >= 0.50) note = '4';
+  else if (pct >= 0.30) note = '5';
+  else note = '6';
+
+  noteEl.textContent = `Ungefähre Note: ${note}`;
+
+  if (pct >= 0.85) {
+    emojiEl.textContent = '🏆';
+    titleEl.textContent = 'Super Ergebnis!';
+  } else if (pct >= 0.65) {
+    emojiEl.textContent = '🎉';
+    titleEl.textContent = 'Gut gemacht!';
+  } else if (pct >= 0.4) {
+    emojiEl.textContent = '💪';
+    titleEl.textContent = 'Solider Versuch!';
+  } else {
+    emojiEl.textContent = '🌱';
+    titleEl.textContent = 'Da geht noch mehr – weiterüben!';
+  }
+
+  showScreen('screen-exam-result');
+}
+
+function confirmExitExam() {
+  if (confirm('Klassenarbeit wirklich abbrechen? Dein Fortschritt geht verloren.')) {
+    if (examState.timerInterval) clearInterval(examState.timerInterval);
+    goHome();
+  }
 }
 
 // init

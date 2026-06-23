@@ -85,6 +85,39 @@ const TOPICS = {
       { q: "Rechenbeispiel: Batteriespannung 9V, LED braucht 1,6V, Strom soll 0,02A sein. Wie groß muss R sein?", a: "R = (9V − 1,6V) / 0,02A = 7,4V / 0,02A = 370 Ohm" },
       { q: "Warum wählt man in der Praxis oft einen höheren Widerstandswert als berechnet?", a: "Weil im Handel nur bestimmte Normwerte erhältlich sind, z.B. 370 Ohm → man nimmt 390 Ohm (nächsthöherer Wert)." },
       { q: "Wie kann man einen Widerstandswert bestimmen? Nenne 2 Methoden.", a: "1. Über den Farbcode ablesen. 2. Mit einem Vielfachmessgerät (Ohmmeter) messen. 3. Mit dem Ohmschen Gesetz berechnen." },
+
+      // --- Transistor ---
+      { q: "Was sind die 3 Anschlüsse eines Transistors?", a: "Basis, Kollektor und Emitter (keine Abkürzungen verwenden!)." },
+      { q: "Was ist die Funktion eines Transistors?", a: "Er funktioniert wie ein elektronischer Schalter: Wenn die Basis Strom erhält, wird der Strom zwischen Kollektor und Emitter durchgeschaltet (verstärkt/geschaltet)." },
+      { q: "Wofür wird ein Transistor häufig genutzt?", a: "Zum Schalten oder Verstärken von kleinen Strömen – z.B. steuert ein kleiner Basisstrom einen viel größeren Strom." },
+
+      // --- Relais & Steuerstromkreis ---
+      { q: "Was ist ein Relais?", a: "Ein elektromagnetisch betätigter Schalter: Ein kleiner Steuerstrom schaltet einen größeren Arbeitsstromkreis ein oder aus." },
+      { q: "Was ist der Unterschied zwischen Steuerstromkreis und Arbeitsstromkreis?", a: "Steuerstromkreis: kleiner Strom (z.B. 12V), der das Relais ansteuert. Arbeitsstromkreis: der größere/gefährlichere Strom (z.B. 230V), der über das Relais geschaltet wird." },
+      { q: "Warum benutzt man bei einer 230V-Lampe, die per Taster geschaltet wird, ein Relais?", a: "Damit der Taster (z.B. in einer Sitzfläche) nur mit sicherer Kleinspannung (z.B. 12V) arbeitet, während die gefährliche 230V-Lampe getrennt über das Relais geschaltet wird." },
+      { q: "Was passiert, wenn ein Taster (Steuerstromkreis) betätigt und wieder losgelassen wird?", a: "Bei Betätigung zieht das Relais an und schließt den Arbeitsstromkreis (Verbraucher schaltet ein). Beim Loslassen öffnet das Relais wieder, der Arbeitsstromkreis wird unterbrochen (Verbraucher schaltet aus)." },
+
+      // --- Strom-Wasser-Analogie ---
+      { q: "Was entspricht der elektrischen Stromstärke im Wasserstromkreis-Vergleich?", a: "Die Wassermenge, die durch das Rohr fließt (Durchflussmenge)." },
+      { q: "Was entspricht der elektrischen Spannung im Wasserstromkreis-Vergleich?", a: "Der Wasserdruck (z.B. erzeugt durch eine Pumpe)." },
+      { q: "Was entspricht dem elektrischen Widerstand im Wasserstromkreis-Vergleich?", a: "Eine Verengung im Rohr (Engstelle), die den Wasserfluss bremst." },
+
+      // --- Begriffsverständnis ---
+      { q: "Warum ist 'Verbraucher' eigentlich ein falscher Begriff für Lampen, Motoren usw.?", a: "Man kann elektrischen Strom (Energie) nicht wirklich 'verbrauchen' – er geht nicht verloren, sondern wird nur in eine andere Energieform umgewandelt (z.B. Licht, Wärme, Bewegung)." },
+      { q: "Was passiert mit der Energie, wenn eine Lampe leuchtet?", a: "Elektrische Energie wird in Licht- und Wärmeenergie umgewandelt – sie verschwindet nicht, sondern wandelt sich um." },
+
+      // --- Reihenschaltung mit mehreren Widerständen berechnen ---
+      { q: "Wie berechnet man den Gesamtwiderstand bei einer Reihenschaltung mehrerer Widerstände?", a: "Man addiert einfach alle Einzelwiderstände: Rges = R1 + R2 + R3 + ..." },
+      { q: "Wie groß ist die Stromstärke an jeder Stelle einer Reihenschaltung?", a: "Überall gleich groß! In einer Reihenschaltung ist die Stromstärke I an jedem Punkt identisch (I1 = I2 = I3)." },
+      { q: "Wie berechnet man die Teilspannung an einem einzelnen Widerstand in der Reihenschaltung?", a: "Mit dem Ohmschen Gesetz: U = R · I (Widerstand mal die (überall gleiche) Stromstärke)." },
+      { q: "Rechenbeispiel: R1=500Ω, R2=200Ω, R3=150Ω in Reihe, Uges=10V. Wie groß ist Rges?", a: "Rges = 500Ω + 200Ω + 150Ω = 850Ω" },
+      { q: "Rechenbeispiel: Rges=850Ω, Uges=10V. Wie groß ist die Stromstärke I (überall in der Reihenschaltung)?", a: "I = U / R = 10V / 850Ω ≈ 0,0118 A ≈ 11,8 mA" },
+      { q: "Rechenbeispiel: I≈0,0118A, R3=150Ω. Wie groß ist U3 (Spannung an R3)?", a: "U3 = R3 · I = 150Ω · 0,0118A ≈ 1,76 V" },
+
+      // --- Widerstandswerte ordnen ---
+      { q: "Wie viel Ohm hat 1 Kiloohm (kΩ)?", a: "1 kΩ = 1.000 Ω" },
+      { q: "Wie viel Ohm hat 1 Megaohm (MΩ)?", a: "1 MΩ = 1.000.000 Ω (eine Million Ohm)" },
+      { q: "Ordne der Größe nach (klein → groß): 2Ω, 2,4kΩ, 2MΩ, 2500kΩ. Was ist der kleinste Wert?", a: "2Ω ist am kleinsten. Reihenfolge: 2Ω < 2,4kΩ (2.400Ω) < 2500kΩ (2.500.000Ω) < 2MΩ (2.000.000Ω) – Achtung: 2500kΩ ist größer als 2MΩ!" },
     ],
     quiz: [
       {
@@ -236,6 +269,66 @@ const TOPICS = {
         options: ["Die Spannung bleibt immer gleich", "Die Spannung wechselt ständig ihre Richtung", "Es gibt keinen Pluspol", "Das ist dasselbe wie Gleichspannung"],
         correct: 1,
         explain: "Bei Wechselspannung wechselt die Spannung ständig ihre Richtung (Polung), z.B. die 230V-Netzspannung."
+      },
+      {
+        q: "Wie heißen die 3 Anschlüsse eines Transistors?",
+        options: ["Plus, Minus, Mitte", "Basis, Kollektor, Emitter", "Anode, Kathode, Gate", "Eingang, Ausgang, Erde"],
+        correct: 1,
+        explain: "Ein Transistor hat die drei Anschlüsse Basis, Kollektor und Emitter."
+      },
+      {
+        q: "Wie funktioniert ein Transistor grundsätzlich?",
+        options: ["Er speichert Energie wie ein Akku", "Ein kleiner Basisstrom schaltet einen größeren Strom", "Er wandelt Wechselspannung in Gleichspannung um", "Er misst die Spannung"],
+        correct: 1,
+        explain: "Erhält die Basis Strom, wird der (größere) Strom zwischen Kollektor und Emitter durchgeschaltet."
+      },
+      {
+        q: "Was ist die Aufgabe eines Relais?",
+        options: ["Es misst den Widerstand", "Ein kleiner Steuerstrom schaltet einen größeren Arbeitsstrom", "Es speichert Spannung", "Es wandelt Licht in Strom um"],
+        correct: 1,
+        explain: "Ein Relais ist ein elektromagnetischer Schalter: ein kleiner Steuerstrom schaltet einen größeren Arbeitsstromkreis."
+      },
+      {
+        q: "Warum nutzt man bei einer 230V-Lampe mit Sitzflächen-Taster ein Relais?",
+        options: ["Damit es schneller schaltet", "Damit der Taster nur mit sicherer Kleinspannung arbeitet", "Um Strom zu sparen", "Das ist nicht nötig"],
+        correct: 1,
+        explain: "Das Relais trennt den gefährlichen 230V-Arbeitsstromkreis vom sicheren Kleinspannungs-Steuerstromkreis am Taster."
+      },
+      {
+        q: "Was entspricht der elektrischen Spannung im Wasserstromkreis-Vergleich?",
+        options: ["Die Wassermenge", "Der Wasserdruck", "Die Rohrlänge", "Die Wassertemperatur"],
+        correct: 1,
+        explain: "Die elektrische Spannung entspricht dem Wasserdruck im Wasserstromkreis-Vergleich."
+      },
+      {
+        q: "Was entspricht dem elektrischen Widerstand im Wasserstromkreis-Vergleich?",
+        options: ["Die Pumpe", "Eine Verengung im Rohr", "Der Wasserhahn", "Die Wassermenge"],
+        correct: 1,
+        explain: "Eine Engstelle im Rohr bremst den Wasserfluss – das entspricht dem elektrischen Widerstand."
+      },
+      {
+        q: "Warum ist 'Verbraucher' eigentlich kein passender Begriff?",
+        options: ["Weil es zu negativ klingt", "Weil Energie nicht verloren geht, sondern nur umgewandelt wird", "Weil nur Strom verbraucht wird, keine Energie", "Der Begriff ist korrekt"],
+        correct: 1,
+        explain: "Elektrische Energie wird nicht 'verbraucht', sondern nur in andere Energieformen (Licht, Wärme, Bewegung) umgewandelt."
+      },
+      {
+        q: "Drei Widerstände R1=500Ω, R2=200Ω, R3=150Ω liegen in Reihe. Wie groß ist Rges?",
+        options: ["283 Ω", "850 Ω", "150.000 Ω", "500 Ω"],
+        correct: 1,
+        explain: "In Reihenschaltung addieren sich die Widerstände: Rges = 500 + 200 + 150 = 850 Ω."
+      },
+      {
+        q: "Wie verhält sich die Stromstärke an verschiedenen Stellen einer Reihenschaltung?",
+        options: ["Sie ist überall unterschiedlich", "Sie ist überall gleich groß", "Sie wird am Ende immer 0", "Das kann man nicht sagen"],
+        correct: 1,
+        explain: "In einer Reihenschaltung ist die Stromstärke an jeder Stelle gleich groß (I1 = I2 = I3)."
+      },
+      {
+        q: "Welcher Widerstandswert ist am GRÖSSTEN: 2Ω, 2,4kΩ, 2MΩ oder 2500kΩ?",
+        options: ["2Ω", "2,4kΩ", "2MΩ", "2500kΩ"],
+        correct: 3,
+        explain: "2500kΩ = 2.500.000Ω ist größer als 2MΩ (2.000.000Ω) – Achtung bei den Einheiten-Umrechnungen!"
       }
     ]
   },
@@ -450,4 +543,131 @@ const TOPICS = {
       }
     ]
   }
+};
+
+// ============================================================
+// KLASSENARBEIT-SIMULATION
+// Aufgabentypen orientiert an typischen Technik-Klassenarbeiten
+// zum Thema Elektrotechnik (Widerstand, Schaltungen, Transistor,
+// Relais, Ohmsches Gesetz). Eigenständig erstellte Aufgaben.
+// ============================================================
+
+const EXAM = {
+  title: "📝 Klassenarbeit-Simulation",
+  sub: "Elektrotechnik – wie in einer echten Arbeit",
+  durationMinutes: 30,
+  questions: [
+    {
+      type: "open",
+      points: 2,
+      q: "Bestimme den Wert des Widerstands mit den Farbringen: grün, rot, rot, gold.",
+      hint: "1. Ring + 2. Ring = Ziffern, 3. Ring = Multiplikator, 4. Ring = Toleranz.",
+      answer: "grün=5, rot=2 → 52, 3. Ring rot = x100 → 52 × 100 = 5.200 Ω = 5,2 kΩ (Toleranz gold = ±5%)"
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Bestimme den Wert des Widerstands mit den Farbringen: silber, orange, blau, gelb.",
+      hint: "Achtung: 'silber' als 1. Ring ist ungewöhnlich – meist beginnt man mit dem 1. Wertring. Nimm orange=3, blau=6 als Ziffern.",
+      answer: "orange=3, blau=6 → 36, 3. Ring gelb = x10.000 → 36 × 10.000 = 360.000 Ω = 360 kΩ"
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Welche Farbkombination (4 Ringe) hat ein Widerstand mit 6,8 kΩ?",
+      hint: "6,8 kΩ = 68 × 100 Ω. Finde die Ziffern 6 und 8 im Farbcode, dann den passenden Multiplikator.",
+      answer: "blau (6), grau (8), rot (x100), + eine Toleranzfarbe, z. B. gold (±5%) → blau, grau, rot, gold"
+    },
+    {
+      type: "open",
+      points: 4,
+      q: "Eine Reihenschaltung hat drei Widerstände: R1 = 500 Ω, R2 = 200 Ω, R3 = 150 Ω. Die Gesamtspannung beträgt Uges = 10 V. Berechne den Gesamtwiderstand Rges, die Stromstärke I und die Teilspannung U3 an R3.",
+      hint: "Reihenfolge: 1) Rges = R1+R2+R3, 2) I = Uges/Rges (I ist überall gleich), 3) U3 = R3 · I",
+      answer: "Rges = 500+200+150 = 850 Ω. I = 10V / 850Ω ≈ 0,0118 A (11,8 mA). U3 = 150Ω · 0,0118A ≈ 1,76 V"
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Zeichne/Beschreibe das Schaltzeichen eines Transistors und benenne alle 3 Anschlüsse (ohne Abkürzungen).",
+      hint: "Ein Transistor hat drei Anschlüsse – einer steuert, zwei lassen den Hauptstrom fließen.",
+      answer: "Anschlüsse: Basis (Steuereingang), Kollektor und Emitter (zwischen denen der Hauptstrom fließt, wenn die Basis angesteuert wird)."
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Erkläre die Funktion eines Transistors in eigenen Worten.",
+      hint: "Was passiert, wenn die Basis Strom bekommt?",
+      answer: "Erhält die Basis einen (kleinen) Steuerstrom, wird dadurch der (größere) Strom zwischen Kollektor und Emitter freigegeben/durchgeschaltet. Der Transistor wirkt wie ein elektronischer Schalter bzw. Verstärker."
+    },
+    {
+      type: "open",
+      points: 3,
+      q: "Eine Schreibtischlampe (230V) soll automatisch leuchten, wenn man sich auf den Stuhl setzt (Drucktaster in der Sitzfläche). Die Lampe wird über ein Relais (12V) angesteuert. Beschreibe, welche zwei Stromkreise es gibt und welche Aufgabe sie jeweils haben.",
+      hint: "Es gibt einen sicheren 'kleinen' Kreis und einen 'großen', gefährlicheren Kreis.",
+      answer: "Steuerstromkreis (12V, ungefährlich): Drucktaster in der Sitzfläche schließt diesen Kreis und aktiviert das Relais. Arbeitsstromkreis (230V): Wird vom Relais geschaltet und versorgt die eigentliche Lampe mit Strom. Vorteil: Die gefährliche Spannung liegt nicht am Taster an."
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Erkläre die Strom-Wasser-Analogie: Was entspricht Stromstärke, Spannung und Widerstand jeweils im Wasserkreislauf?",
+      hint: "Denk an eine Pumpe, ein Rohr und eine Engstelle.",
+      answer: "Stromstärke = Wassermenge/Durchfluss. Spannung = Wasserdruck (von der Pumpe erzeugt). Widerstand = Engstelle im Rohr, die den Durchfluss bremst."
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Warum ist der Begriff 'Verbraucher' im Zusammenhang mit elektrischem Strom eigentlich nicht ganz korrekt?",
+      hint: "Geht die Energie wirklich verloren?",
+      answer: "Strom (Energie) wird nicht wirklich 'verbraucht' – sie geht nicht verloren, sondern wird nur in eine andere Energieform umgewandelt, z. B. in Licht, Wärme oder Bewegung."
+    },
+    {
+      type: "open",
+      points: 3,
+      q: "Eine LED hat die Spezifikation Imax = 25 mA, ULED = 2,0 V. Berechne den nötigen Vorwiderstand, wenn die angelegte Spannung 9 V beträgt.",
+      hint: "1) mA in A umrechnen (25mA = 0,025A). 2) R = (Uges − ULED) / I",
+      answer: "R = (9V − 2,0V) / 0,025A = 7V / 0,025A = 280 Ω → in der Praxis nächsthöheren Normwert wählen, z. B. 300 Ω."
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Berechne I: U = 130 V, R = 0,2 kΩ.",
+      hint: "Achtung: 0,2 kΩ erst in Ω umrechnen (kΩ × 1000). Dann I = U/R.",
+      answer: "0,2 kΩ = 200 Ω. I = U/R = 130V / 200Ω = 0,65 A"
+    },
+    {
+      type: "open",
+      points: 2,
+      q: "Berechne R: I = 2,5 A, U = 200 V.",
+      hint: "R = U/I",
+      answer: "R = 200V / 2,5A = 80 Ω"
+    },
+    {
+      type: "open",
+      points: 1,
+      q: "Ordne der Größe nach (klein → groß): 18Ω; 1,8kΩ; 1800kΩ; 1,8MΩ",
+      hint: "Rechne alles in Ω um: kΩ ×1.000, MΩ ×1.000.000.",
+      answer: "18Ω < 1,8kΩ (1.800Ω) < 1,8MΩ (1.800.000Ω) < 1800kΩ (1.800.000Ω) → 1,8MΩ und 1800kΩ sind gleich groß! Reihenfolge: 18Ω, 1,8kΩ, 1,8MΩ = 1800kΩ"
+    },
+    {
+      type: "mc",
+      points: 1,
+      q: "Was entspricht der elektrischen Stromstärke im Wasserstromkreis-Vergleich?",
+      options: ["Der Wasserdruck", "Die durchfließende Wassermenge", "Die Rohrlänge", "Die Wassertemperatur"],
+      correct: 1,
+      explain: "Die Stromstärke entspricht der Wassermenge, die durch das Rohr fließt."
+    },
+    {
+      type: "mc",
+      points: 1,
+      q: "Welche der folgenden Aussagen zum Relais ist richtig?",
+      options: [
+        "Ein Relais erhöht die Spannung",
+        "Ein Relais schaltet mit einem kleinen Steuerstrom einen größeren Arbeitsstrom",
+        "Ein Relais speichert elektrische Energie",
+        "Ein Relais wandelt Wechselspannung in Gleichspannung um"
+      ],
+      correct: 1,
+      explain: "Ein Relais ist ein elektromagnetischer Schalter: kleiner Steuerstrom schaltet größeren Arbeitsstrom."
+    }
+  ]
 };
